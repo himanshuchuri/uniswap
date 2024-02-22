@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.4.24;
 
-import "/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 library TransferHelper {
-    IERC20 public ERC20;
 
     /// @notice Transfers tokens from the targeted address to the given destination
     /// @notice Errors with 'STF' if transfer fails
@@ -18,7 +17,6 @@ library TransferHelper {
         address to,
         uint256 value
     ) internal {
-        ERC20 = IERC20(token);
         (bool success, bytes memory data) = token.call(
             abi.encodeWithSelector(
                 IERC20.transferFrom.selector,

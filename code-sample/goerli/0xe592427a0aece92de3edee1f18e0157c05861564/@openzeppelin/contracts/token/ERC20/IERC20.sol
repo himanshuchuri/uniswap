@@ -5,7 +5,7 @@ pragma solidity ^0.4.24;
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
  */
-interface IERC20 {
+contract IERC20 {
     /**
      * @dev Returns the amount of tokens in existence.
      */
