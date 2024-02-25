@@ -5,7 +5,7 @@ import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe
 
 
 
-library TransferHelper is ERC20 {
+library TransferHelper is TERC20 {
 
     /// @notice Transfers tokens from the targeted address to the given destination
     /// @notice Errors with 'STF' if transfer fails
@@ -21,7 +21,7 @@ library TransferHelper is ERC20 {
     ) internal {
         (bool success, bytes memory data) = token.call(
             abi.encodeWithSelector(
-                ERC20.transferFrom.selector,
+                TERC20.transferFrom.selector,
                 from,
                 to,
                 value
@@ -40,7 +40,7 @@ library TransferHelper is ERC20 {
     /// @param value The value of the transfer
     function safeTransfer(address token, address to, uint256 value) internal {
         (bool success, bytes memory data) = token.call(
-            abi.encodeWithSelector(ERC20.transfer.selector, to, value)
+            abi.encodeWithSelector(TERC20.transfer.selector, to, value)
         );
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
@@ -55,7 +55,7 @@ library TransferHelper is ERC20 {
     /// @param value The amount of the given token the target will be allowed to spend
     function safeApprove(address token, address to, uint256 value) internal {
         (bool success, bytes memory data) = token.call(
-            abi.encodeWithSelector(ERC20.approve.selector, to, value)
+            abi.encodeWithSelector(TERC20.approve.selector, to, value)
         );
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),

@@ -38,7 +38,7 @@ contract Context {
     }
 }
 
-contract ERC20 is Context {
+contract TERC20 is Context {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
