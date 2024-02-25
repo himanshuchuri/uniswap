@@ -3,7 +3,7 @@ pragma solidity 0.4.24;
 
 /// @title Interface for permit
 /// @notice Interface used by DAI/CHAI for permit
-interface IERC20PermitAllowed {
+contract IERC20PermitAllowed {
     /// @notice Approve the spender to spend some tokens via the holder signature
     /// @dev This is the permit interface used by DAI and CHAI
     /// @param holder The address of the token holder, the token owner

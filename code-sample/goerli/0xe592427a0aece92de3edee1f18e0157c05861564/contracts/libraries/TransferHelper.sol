@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.4.24;
 
-import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/ERC20.sol';
 
-library TransferHelper {
+
+
+library TransferHelper is ERC20 {
 
     /// @notice Transfers tokens from the targeted address to the given destination
     /// @notice Errors with 'STF' if transfer fails
@@ -19,7 +21,7 @@ library TransferHelper {
     ) internal {
         (bool success, bytes memory data) = token.call(
             abi.encodeWithSelector(
-                IERC20.transferFrom.selector,
+                ERC20.transferFrom.selector,
                 from,
                 to,
                 value
@@ -38,7 +40,7 @@ library TransferHelper {
     /// @param value The value of the transfer
     function safeTransfer(address token, address to, uint256 value) internal {
         (bool success, bytes memory data) = token.call(
-            abi.encodeWithSelector(IERC20.transfer.selector, to, value)
+            abi.encodeWithSelector(ERC20.transfer.selector, to, value)
         );
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
@@ -53,7 +55,7 @@ library TransferHelper {
     /// @param value The amount of the given token the target will be allowed to spend
     function safeApprove(address token, address to, uint256 value) internal {
         (bool success, bytes memory data) = token.call(
-            abi.encodeWithSelector(IERC20.approve.selector, to, value)
+            abi.encodeWithSelector(ERC20.approve.selector, to, value)
         );
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
