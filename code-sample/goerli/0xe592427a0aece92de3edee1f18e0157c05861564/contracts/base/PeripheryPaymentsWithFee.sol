@@ -16,13 +16,19 @@ contract PeripheryPaymentsWithFee is PeripheryPayments, IPeripheryPaymentsWithFe
 
     using LowGasSafeMath for uint256;
 
+    TransferHelper private thelper;
+
+    constructor(address _thelper) {
+        thelper = TransferHelper(_thelper);
+    }
+
     // @inheritdoc IPeripheryPaymentsWithFee
     function unwrapWETH9WithFee(
         uint256 amountMinimum,
         address recipient,
         uint256 feeBips,
         address feeRecipient
-    ) public payable {
+    ) external payable {
         require(feeBips > 0 && feeBips <= 100);
 
         uint256 balanceWETH9 = IWETH9(WETH9).balanceOf(address(this));
@@ -31,8 +37,8 @@ contract PeripheryPaymentsWithFee is PeripheryPayments, IPeripheryPaymentsWithFe
         if (balanceWETH9 > 0) {
             IWETH9(WETH9).withdraw(balanceWETH9);
             uint256 feeAmount = balanceWETH9.mul(feeBips) / 10000;//10_000;
-            if (feeAmount > 0) TransferHelper.safeTransferETH(feeRecipient, feeAmount);
-            TransferHelper.safeTransferETH(recipient, balanceWETH9 - feeAmount);
+            if (feeAmount > 0) thelper.safeTransferETH(feeRecipient, feeAmount);
+            thelper.safeTransferETH(recipient, balanceWETH9 - feeAmount);
         }
     }
 
@@ -43,7 +49,7 @@ contract PeripheryPaymentsWithFee is PeripheryPayments, IPeripheryPaymentsWithFe
         address recipient,
         uint256 feeBips,
         address feeRecipient
-    ) public payable {
+    ) external payable {
         require(feeBips > 0 && feeBips <= 100);
 
         uint256 balanceToken = IERC20(token).balanceOf(address(this));

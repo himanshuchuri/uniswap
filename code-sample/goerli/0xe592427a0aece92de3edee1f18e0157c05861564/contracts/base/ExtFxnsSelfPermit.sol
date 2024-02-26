@@ -9,14 +9,7 @@ import "/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe
 
 contract T{
 
-    function selfPermit(
-        address token,
-        uint256 value,
-        uint256 deadline,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
-    ) public payable {
+    function selfPermit(address token,uint256 value,uint256 deadline, uint8 v,bytes32 r, bytes32 s) external payable {
         IERC20Permit(token).permit(
             msg.sender,
             address(this),
@@ -29,14 +22,7 @@ contract T{
     }
 
     // @inheritdoc ISelfPermit
-    function selfPermitAllowed(
-        address token,
-        uint256 nonce,
-        uint256 expiry,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
-    ) public payable {
+    function selfPermitAllowed(address token,uint256 nonce,uint256 expiry, uint8 v,bytes32 r,bytes32 s) external payable {
         IERC20PermitAllowed(token).permit(
             msg.sender,
             address(this),

@@ -12,9 +12,14 @@ import "/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe
 /// that requires an approval in a single transaction.
 
 contract SelfPermit is ISelfPermit,T {
-    // @inheritdoc ISelfPermi
 
-    // @inheritdoc ISelfPermit
+    T private t;
+
+    constructor(address _t) {
+        t = T(_t);
+    }
+
+
     function selfPermitIfNecessary(
         address token,
         uint256 value,
@@ -24,11 +29,10 @@ contract SelfPermit is ISelfPermit,T {
         bytes32 s
     ) external payable {
         if (IERC20(token).allowance(msg.sender, address(this)) < value) {
-            T.selfPermit(token, value, deadline, v, r, s);
+            t.selfPermit(token, value, deadline, v, r, s);
         }
     }
 
-    // @inheritdoc ISelfPermit
     function selfPermitAllowedIfNecessary(
         address token,
         uint256 nonce,
@@ -42,6 +46,6 @@ contract SelfPermit is ISelfPermit,T {
             ((2 ** 256) - 1)
         )
             //type(uint256).max)
-            T.selfPermitAllowed(token, nonce, expiry, v, r, s);
+            t.selfPermitAllowed(token, nonce, expiry, v, r, s);
     }
 }

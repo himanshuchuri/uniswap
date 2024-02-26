@@ -228,16 +228,16 @@ contract IERC20Permit is Nonces,EIP712,TERC20  {
         _approve(owner, spender, value);
     }
 
-    /**
-     * @inheritdoc IERC20Permit
-     */
+    
+    // @inheritdoc IERC20Permit
+
     function nonces(address owner) public view returns (uint256) {
         return super.nonces(owner);
     }
 
-    /**
-     * @inheritdoc IERC20Permit
-     */
+    
+    //@inheritdoc IERC20Permit
+    
     // solhint-disable-next-line func-name-mixedcase
     function DOMAIN_SEPARATOR() external view returns (bytes32) {
         return _domainSeparatorV4();

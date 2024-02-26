@@ -11,10 +11,16 @@ import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe
 import '/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/contracts/base/PeripheryImmutableState.sol';
 
 //abstract contract PeripheryPayments is IPeripheryPayments, PeripheryImmutableState {
-contract PeripheryPayments is IPeripheryPayments, PeripheryImmutableState {
+contract PeripheryPayments is IPeripheryPayments, PeripheryImmutableState, TransferHelper {
 
 
     event ReceivedETH(uint256 amount);
+
+    TransferHelper private thelper;
+
+    constructor(address _thelper) {
+        thelper = TransferHelper(_thelper);
+    }
 
     /// @notice Fallback function to receive WETH9 deposits
     function () external payable {
@@ -33,7 +39,7 @@ contract PeripheryPayments is IPeripheryPayments, PeripheryImmutableState {
 
         if (balanceWETH9 > 0) {
             IWETH9(WETH9).withdraw(balanceWETH9);
-            TransferHelper.safeTransferETH(recipient, balanceWETH9);
+            thelper.safeTransferETH(recipient, balanceWETH9);
         }
     }
 
@@ -53,7 +59,7 @@ contract PeripheryPayments is IPeripheryPayments, PeripheryImmutableState {
 
     // @inheritdoc IPeripheryPayments
     function refundETH() external payable {
-        if (address(this).balance > 0) TransferHelper.safeTransferETH(msg.sender, address(this).balance);
+        if (address(this).balance > 0) thelper.safeTransferETH(msg.sender, address(this).balance);
     }
 
     /// @param token The token to pay
