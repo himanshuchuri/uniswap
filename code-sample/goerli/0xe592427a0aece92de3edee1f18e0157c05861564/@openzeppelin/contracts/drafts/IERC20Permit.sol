@@ -2,7 +2,7 @@
 
 pragma solidity 0.4.24;
 
-import "/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/ERC20.sol";
+import "/Users/himanshuchuri/Desktop/Solidity_Exp/uniswap/code-sample/goerli/0xe592427a0aece92de3edee1f18e0157c05861564/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
 
@@ -203,7 +203,7 @@ contract Nonces {
     }
 }
 
-contract IERC20Permit is Nonces,EIP712,ERC20  {
+contract IERC20Permit is Nonces,EIP712,TERC20  {
 
     bytes32 private constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
