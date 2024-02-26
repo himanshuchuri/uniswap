@@ -66,11 +66,11 @@ contract SwapRouter is
     function uniswapV3SwapCallback(
         int256 amount0Delta,
         int256 amount1Delta,
-        //bytes calldata _data
-        bytes _data
+        bytes calldata _data
+        //bytes _data
     ) external {
         require(amount0Delta > 0 || amount1Delta > 0); // swaps entirely within 0-liquidity regions are not supported
-        SwapCallbackData memory data = abi.decode(_data, (SwapCallbackData));
+        SwapCallbackData memory data = abi.decode(calldata, (SwapCallbackData));
         (address tokenIn, address tokenOut, uint24 fee) = data
             .path
             .decodeFirstPool();
@@ -264,7 +264,7 @@ contract SwapRouter is
         amountInCached = DEFAULT_AMOUNT_IN_CACHED;
     }
 
-    /// @inheritdoc ISwapRouter
+    // @inheritdoc ISwapRouter
     function exactOutput(
         //ExactOutputParams calldata params
         ExactOutputParams params
